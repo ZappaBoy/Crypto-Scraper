@@ -85,7 +85,7 @@ public class WebScraper {
 
                     System.out.println("\nDaily Price Min: " + dailyPriceMin);
 
-                    System.out.println("\nDaily Change: " + dailyChange);
+                    //System.out.println("\nDaily Change: " + dailyChange);
 
                     stringScroller(coinName, 0);
                 }
