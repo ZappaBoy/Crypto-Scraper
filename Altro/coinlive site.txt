@@ -1,0 +1,66 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+
+import java.io.IOException;
+
+public class WebScraper {
+
+
+    public static void main(String [] args) {
+
+        Document doc;
+
+        String url = "https://coins.live/";
+
+        String TableClass = "highlight.bordered";
+
+        String columnCoinName = "td:nth-of-type(2)";
+        String columnCoinMarketCap = ".display_coin_market_cap";
+        String columnCoinPrice = ".display_coin_price";
+        String columnCoinDailyChange = ".display_coin_24hr_change";
+
+
+
+        try {
+                doc = Jsoup.connect(url).get();
+
+                String title = doc.title();
+
+                System.out.println("Title = " + title);
+
+                //Reading Coin Name
+
+                for (Element row : doc.select("table." + TableClass + " tr")){
+
+                        if (row.select(columnCoinName).text().equals("")){
+
+                            continue;
+                    }else{
+
+                            final String coinName = row.select(columnCoinName).text();
+
+                            final String marketCap = row.select(columnCoinMarketCap).text();
+
+                            final String price = row.select(columnCoinPrice).text();
+
+                            final String dailyChange = row.select(columnCoinDailyChange).text();
+
+                        System.out.println("\nName: " + coinName + "\tMarketCap: " + marketCap + "\tPrice: " + price + "\tDaily Change: " + dailyChange);
+                    }
+
+                }
+
+               // System.out.println(doc.outerHtml());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+    }
+
+}
